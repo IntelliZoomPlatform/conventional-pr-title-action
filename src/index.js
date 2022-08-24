@@ -6,10 +6,9 @@ const validateTitle = require('./validateTitle');
 
 async function run() {
   try {
-    let contextName = core.getInput('context-name');
     let successState = core.getInput('success-state');
+    let config = core.getInput('config') | {};
     let failureState = core.getInput('failure-state');
-    let targetUrl = core.getInput('target-url') || 'https://github.com/aslafy-z/conventional-pr-title-action';
     const installPresetPackage = core.getInput('preset');
     const requirePresetPackage = npa(installPresetPackage).name;
 
@@ -23,7 +22,7 @@ async function run() {
     let error = null;
     try {
       await installPreset(installPresetPackage);
-      await validateTitle(requirePresetPackage, contextPullRequest.title);
+      await validateTitle(requirePresetPackage, contextPullRequest.title, config);
     } catch (err) {
       error = err;
     }

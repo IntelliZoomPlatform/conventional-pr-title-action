@@ -5,10 +5,10 @@ function isFunction(functionToCheck) {
   return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
 }
 
-module.exports = async function validateTitle(preset, title) {
+module.exports = async function validateTitle(preset, title, config) {
   let conventionalChangelogConfig = require(preset);
   if (isFunction(conventionalChangelogConfig)) {
-    conventionalChangelogConfig = await conventionalChangelogConfig();
+    conventionalChangelogConfig = await conventionalChangelogConfig(config);
   }
   const { parserOpts } = conventionalChangelogConfig;
   const result = parser(title, parserOpts);
