@@ -7,7 +7,6 @@ const validateTitle = require('./validateTitle');
 async function run() {
   try {
     let successState = core.getInput('success-state');
-    let config = core.getInput('config');
     let failureState = core.getInput('failure-state');
     const installPresetPackage = core.getInput('preset');
     const requirePresetPackage = npa(installPresetPackage).name;
@@ -18,16 +17,11 @@ async function run() {
         "This action can only be invoked in `pull_request` events. Otherwise the pull request can't be inferred."
       );
     }
-    try {
-      config =  JSON.parse(config);
-    } catch(e) {
-      config = {};
-    }
 
     let error = null;
     try {
       await installPreset(installPresetPackage);
-      await validateTitle(requirePresetPackage, contextPullRequest.title, config);
+      await validateTitle(requirePresetPackage, contextPullRequest.title);
     } catch (err) {
       error = err;
     }
