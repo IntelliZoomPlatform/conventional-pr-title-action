@@ -60,8 +60,6 @@ jobs:
           failure-state: Title does not follow the specification.
           context-name: conventional-pr-title
           preset: conventional-changelog-angular@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 > Note: Avoid using `main` ref, prefer to pin the last release's SHA ref.
